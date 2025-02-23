@@ -22,8 +22,7 @@ jobs:
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }} && docker push ${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact:${{ github.run_number }}
 
     - name: deploy on ec2
-      run: run: echo "${{ secrets.SSH_KEY }}" > my_key.pem && chmod 600 private_key && \
-                ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-51-20-86-247.eu-north-1.compute.amazonaws.com '
+      run: run: echo "${{ secrets.SSH_KEY }}" > my_key.pem && chmod 600 private_key && ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-51-20-86-247.eu-north-1.compute.amazonaws.com '
               cd ~/
               docker pull ${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact
               docker run --name "hello" ${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact

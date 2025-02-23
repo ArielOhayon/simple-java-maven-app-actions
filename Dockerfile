@@ -22,5 +22,5 @@ COPY --from=build /app/target/my-app-1.0.${PATCH_VERSION}.jar /
 RUN echo $PATCH_VERSION
 
 #ENTRYPOINT ["/bin/sh", "-c", "java -jar /target/my-app-1.0.*.jar"]
-CMD ["java",  "-jar", "/my-app-1.0.${PATCH_VERSION}.jar"]
+CMD ["sh", "-c", "java -jar /my-app-1.0.${PATCH_VERSION}.jar"]
 #java -jar /target/my-app

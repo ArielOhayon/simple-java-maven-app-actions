@@ -11,7 +11,7 @@ FROM openjdk:17.0.2-jdk-slim-buster AS run
 
 WORKDIR /target
 
-ARG PATCH_VERSION=$GITHUB_RUN_NUMRBER
+ARG PATCH_VERSION=$GITHUB_RUN_NUMBER
 
 COPY --from=build /app/target /target
 

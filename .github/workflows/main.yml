@@ -18,5 +18,8 @@ jobs:
     - name: test versioning
       run: echo $GITHUB_RUN_NUMBER
 
+    - name: test pom
+      run: head -n 7 pom.xml | tail -n 1
+
     - name: run docker image
       run: docker run --name "hello" ${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact:$GITHUB_RUN_NUMBER

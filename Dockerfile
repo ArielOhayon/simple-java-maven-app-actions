@@ -11,7 +11,9 @@ FROM openjdk:17.0.2-jdk-slim-buster AS run
 
 WORKDIR /target
 
+ARG PATCH_VERSION=$GITHUB_RUN_NUMRBER
+
 COPY --from=build /app/target /target
 
-ENTRYPOINT ["java", "-jar", "/target/my-app-1.0.null.jar"]
+ENTRYPOINT ["java", "-jar", "/target/my-app-1.0.$PATCH_VERSION.jar"]
 #java -jar /target/my-app

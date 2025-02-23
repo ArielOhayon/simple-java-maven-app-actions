@@ -15,10 +15,12 @@ FROM openjdk:17.0.2-jdk-slim-buster AS run
 
 WORKDIR /target
 
-COPY --from=build /app/target /target
+ARG PATCH_VERSION
+
+COPY --from=build /app/target/my-app-1.0.${PATCH_VERSION}.jar /
 
 RUN echo $PATCH_VERSION
 
 #ENTRYPOINT ["/bin/sh", "-c", "java -jar /target/my-app-1.0.*.jar"]
-ENTRYPOINT ["/bin/sh", "-c", "java -jar /target/my-app-1.0.${PATCH_VERSION}.jar"]
+CMD ["java",  "-jar", "/my-app-1.0.${PATCH_VERSION}.jar"]
 #java -jar /target/my-app

@@ -15,5 +15,7 @@ ARG PATCH_VERSION=$GITHUB_RUN_NUMBER
 
 COPY --from=build /app/target /target
 
+RUN echo $PATCH_VERSION
+
 ENTRYPOINT ["java", "-jar", "/target/my-app-1.0.$PATCH_VERSION.jar"]
 #java -jar /target/my-app

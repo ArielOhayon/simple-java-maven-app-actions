@@ -22,4 +22,4 @@ jobs:
       run: head -n 7 pom.xml | tail -n 1
 
     - name: run docker image
-      run: docker run --name "hello" ${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact:${{ github.run_number }}
+      run: docker run --name "hello" "${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact:${{ github.run_number }}"

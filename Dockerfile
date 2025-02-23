@@ -5,18 +5,20 @@ WORKDIR /app
 
 COPY . /app
 
-RUN mvn clean package -f pom.xml
+ARG PATCH_VERSION
+
+RUN mvn clean package -f pom.xml -Dversion=$PATCH_VERSION
+
+RUN ls target
 
 FROM openjdk:17.0.2-jdk-slim-buster AS run
 
 WORKDIR /target
 
-ARG PATCH_VERSION=$GITHUB_RUN_NUMBER
-
 COPY --from=build /app/target /target
 
 RUN echo $PATCH_VERSION
 
-ENTRYPOINT ["/bin/sh", "-c", "java -jar /target/my-app-1.0.*.jar"]
-#ENTRYPOINT ["java", "-jar", "/target/my-app-1.0.$PATCH_VERSION.jar"]
+#ENTRYPOINT ["/bin/sh", "-c", "java -jar /target/my-app-1.0.*.jar"]
+ENTRYPOINT ["java", "-jar", "/target/my-app-1.0.$PATCH_VERSION.jar"]
 #java -jar /target/my-app

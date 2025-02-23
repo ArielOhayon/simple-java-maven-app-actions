@@ -13,13 +13,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: build the docker image
-      run: docker build --build-arg PATCH_VERSION=$GITHUB_RUN_NUMRBER -t "${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact:$GITHUB_RUN_NUMBER" .
+      run: docker build --build-arg PATCH_VERSION=${{ github.run_number }} -t "${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact:${{ github.run_number }}" .
 
     - name: test versioning
-      run: echo $GITHUB_RUN_NUMBER
+      run: echo ${{ github.run_number }}
 
     - name: test pom
       run: head -n 7 pom.xml | tail -n 1
 
     - name: run docker image
-      run: docker run --name "hello" ${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact:$GITHUB_RUN_NUMBER
+      run: docker run --name "hello" ${{ secrets.DOCKERHUB_USERNAME }}/maven_jar_artifact:${{ github.run_number }}

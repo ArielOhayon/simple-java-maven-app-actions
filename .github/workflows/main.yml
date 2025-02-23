@@ -1,0 +1,19 @@
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: build the docker image
+      run: docker build --build-arg PATCH_VERSION=$GITHUB_RUN_NUMRBER -t "${{ secrets.DOCKERHUB.USERNAME }}/maven_jar_artifact:$GITHUB_RUN_NUMBER"
+
+    - name: run docker image
+      run: docker run --name "hello" ${{ secrets.DOCKERHUB.USERNAME }}/maven_jar_artifact:$GITHUB_RUN_NUMBER
